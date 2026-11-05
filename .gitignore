@@ -1,0 +1,18 @@
+# Maven
+target/
+
+# NetBeans
+nbproject/private/
+nbactions-private.xml
+
+# IDE
+.idea/
+.vscode/
+
+# Sistema operatiu
+.DS_Store
+Thumbs.db
+
+# Fitxers temporals
+*.log
+*.tmp
