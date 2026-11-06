@@ -182,6 +182,7 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         menuUsuari.setText("Usuari");
 
         itemCrearUsuari.setText("Crear...");
+        itemCrearUsuari.addActionListener(this::itemCrearUsuariActionPerformed);
         menuUsuari.add(itemCrearUsuari);
 
         itemEsborrarUsuari.setText("Esborrar...");
@@ -224,6 +225,14 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void itemCrearUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCrearUsuariActionPerformed
+        // TODO add your handling code here:
+        CrearUsuari formulari = new CrearUsuari(this, true, gestio);
+formulari.setVisible(true);
+
+carregarLloguers();
+    }//GEN-LAST:event_itemCrearUsuariActionPerformed
 
     /**
      * @param args the command line arguments
