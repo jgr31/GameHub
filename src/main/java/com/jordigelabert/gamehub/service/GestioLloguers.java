@@ -41,6 +41,10 @@ public class GestioLloguers {
     public List<Lloguer> getLloguers() {
         return Collections.unmodifiableList(lloguers);
     }
+    
+    public int getSeguentIdLloguer() {
+    return seguentIdLloguer;
+}
 
     // GESTIÓ D'USUARIS
 

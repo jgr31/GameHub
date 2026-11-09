@@ -172,9 +172,11 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         menuLloguer.setText("Lloguer");
 
         itemRegistrarLloguer.setText("Registrar...");
+        itemRegistrarLloguer.addActionListener(this::itemRegistrarLloguerActionPerformed);
         menuLloguer.add(itemRegistrarLloguer);
 
         itemTornarLloguer.setText("Tornar...");
+        itemTornarLloguer.addActionListener(this::itemTornarLloguerActionPerformed);
         menuLloguer.add(itemTornarLloguer);
 
         jMenuBar1.add(menuLloguer);
@@ -260,6 +262,24 @@ formulari.setVisible(true);
 
 carregarLloguers();
     }//GEN-LAST:event_itemEsborrarJocActionPerformed
+
+    private void itemRegistrarLloguerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarLloguerActionPerformed
+        // TODO add your handling code here:
+        RegistrarLloguer formulari =
+        new RegistrarLloguer(this, true, gestio);
+
+formulari.setVisible(true);
+carregarLloguers();
+    }//GEN-LAST:event_itemRegistrarLloguerActionPerformed
+
+    private void itemTornarLloguerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTornarLloguerActionPerformed
+        // TODO add your handling code here:
+        TornarLloguer formulari =
+        new TornarLloguer(this, true, gestio);
+
+formulari.setVisible(true);
+carregarLloguers();
+    }//GEN-LAST:event_itemTornarLloguerActionPerformed
 
     /**
      * @param args the command line arguments
