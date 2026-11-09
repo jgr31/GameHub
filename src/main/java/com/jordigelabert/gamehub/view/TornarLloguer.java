@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author JGR
@@ -30,6 +33,11 @@ private final List<Lloguer> lloguersTaula = new ArrayList<>();
 private static final DateTimeFormatter FORMAT_DATA =
         DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+private static final ResourceBundle textos = ResourceBundle.getBundle(
+        "com.jordigelabert.gamehub.Bundle",
+        Locale.forLanguageTag("ca-ES")
+);
+
     /**
      * Creates new form TornarLloguer
      */
@@ -40,6 +48,14 @@ private static final DateTimeFormatter FORMAT_DATA =
     this.gestio = gestio;
 
     initComponents();
+    configurarTextos();
+    
+    taulaLloguers.getSelectionModel().addListSelectionListener(e -> {
+    if (!e.getValueIsAdjusting()) {
+        actualitzarDetalls();
+    }
+});
+    
     setLocationRelativeTo(parent);
 
     carregarLloguers();
@@ -48,6 +64,33 @@ private static final DateTimeFormatter FORMAT_DATA =
 // Constructor per executar el formulari individualment
 public TornarLloguer(java.awt.Frame parent, boolean modal) {
     this(parent, modal, new GestioLloguers());
+}
+
+private void configurarTextos() {
+    setTitle(textos.getString("lloguer.tornar.titol"));
+
+    // Etiquetes dels detalls
+    labelJoc.setText(textos.getString("lloguer.tornar.joc") + ":");
+    labelUsuari.setText(textos.getString("lloguer.tornar.usuari") + ":");
+    labelPlataforma.setText(textos.getString("lloguer.tornar.plataforma") + ":");
+    labelDataInici.setText(textos.getString("lloguer.tornar.dataInici") + ":");
+
+    // Botons
+    botoRetornar.setText(textos.getString("boto.retornar"));
+    botoTancar.setText(textos.getString("boto.tancar"));
+
+    // Columnes de la taula
+    String[] columnes = {
+        textos.getString("taula.numero"),
+        textos.getString("taula.joc"),
+        textos.getString("taula.usuari"),
+        textos.getString("taula.plataforma"),
+        textos.getString("taula.dataInici")
+    };
+
+    for (int i = 0; i < columnes.length; i++) {
+        taulaLloguers.getColumnModel().getColumn(i).setHeaderValue(columnes[i]);
+    }
 }
 
 private void carregarLloguers() {
@@ -282,7 +325,7 @@ private void actualitzarDetalls() {
 
     private void taulaLloguersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taulaLloguersMouseClicked
         // TODO add your handling code here:
-        actualitzarDetalls();
+        
     }//GEN-LAST:event_taulaLloguersMouseClicked
 
     private void botoRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoRetornarActionPerformed
@@ -299,8 +342,8 @@ Lloguer lloguer = lloguersTaula.get(filaModel);
 // Confirmar la devolució
 int resposta = JOptionPane.showConfirmDialog(
         this,
-        "Vols marcar aquest lloguer com a retornat?",
-        "Confirmar devolució",
+        textos.getString("lloguer.tornar.confirmacio"),
+        textos.getString("lloguer.tornar.confirmarTitol"),
         JOptionPane.YES_NO_OPTION
 );
 
@@ -313,7 +356,7 @@ if (gestio.retornarLloguer(lloguer)) {
 
     JOptionPane.showMessageDialog(
             this,
-            "El lloguer s'ha retornat correctament."
+            textos.getString("lloguer.tornar.correcte")
     );
 
     carregarLloguers();
@@ -322,8 +365,8 @@ if (gestio.retornarLloguer(lloguer)) {
 
     JOptionPane.showMessageDialog(
             this,
-            "Aquest lloguer ja ha estat retornat.",
-            "Error",
+            textos.getString("lloguer.tornar.jaRetornat"),
+            textos.getString("missatge.error"),
             JOptionPane.WARNING_MESSAGE
     );
 }

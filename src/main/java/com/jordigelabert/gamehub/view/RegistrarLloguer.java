@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 /**
  *
  * @author JGR
@@ -26,6 +28,11 @@ public class RegistrarLloguer extends javax.swing.JDialog {
 private static final DateTimeFormatter FORMAT_DATA =
         DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+private static final ResourceBundle textos = ResourceBundle.getBundle(
+        "com.jordigelabert.gamehub.Bundle",
+        Locale.forLanguageTag("ca-ES")
+);
+
     /**
      * Creates new form RegistrarLloguer
      */
@@ -36,6 +43,7 @@ public RegistrarLloguer(java.awt.Frame parent, boolean modal,
     this.gestio = gestio;
 
     initComponents();
+    configurarTextos();
     setLocationRelativeTo(parent);
 
     carregarDades();
@@ -44,6 +52,40 @@ public RegistrarLloguer(java.awt.Frame parent, boolean modal,
 // Constructor per executar el formulari individualment
 public RegistrarLloguer(java.awt.Frame parent, boolean modal) {
     this(parent, modal, new GestioLloguers());
+}
+
+private void configurarTextos() {
+    setTitle(textos.getString("lloguer.registrar.titol"));
+
+    panelDades.setBorder(
+        javax.swing.BorderFactory.createTitledBorder(
+            textos.getString("lloguer.registrar.dades")
+        )
+    );
+
+    labelNumRegistre.setText(textos.getString("lloguer.registrar.numero") + ":");
+    labelUsuari.setText(textos.getString("lloguer.registrar.usuari") + ":");
+    labelJoc.setText(textos.getString("lloguer.registrar.joc") + ":");
+    labelDataInici.setText(textos.getString("lloguer.registrar.dataInici") + ":");
+    labelDataTornada.setText(textos.getString("lloguer.registrar.dataTornada") + ":");
+
+    panelPlataformes.setBorder(
+        javax.swing.BorderFactory.createTitledBorder(
+            textos.getString("lloguer.registrar.plataforma")
+        )
+    );
+
+    panelInfoJoc.setBorder(
+        javax.swing.BorderFactory.createTitledBorder(
+            textos.getString("lloguer.registrar.infoJoc")
+        )
+    );
+
+    labelGenere.setText(textos.getString("lloguer.registrar.genere") + ":");
+    labelDisponibilitat.setText(textos.getString("lloguer.registrar.unitats") + ":");
+
+    botoConfirmar.setText(textos.getString("boto.confirmar"));
+    botoCancelar.setText(textos.getString("boto.cancelar"));
 }
 
 private void carregarDades() {
@@ -441,7 +483,7 @@ Videojoc joc = (Videojoc) comboJoc.getSelectedItem();
 
 if (usuari == null || joc == null) {
     JOptionPane.showMessageDialog(this,
-            "Has de seleccionar un usuari i un videojoc.");
+            textos.getString("error.lloguer.usuariJoc"));
     return;
 }
 
@@ -460,7 +502,7 @@ if (radioPS5.isSelected()) {
 
 if (plataforma == null) {
     JOptionPane.showMessageDialog(this,
-            "Has de seleccionar una plataforma.");
+            textos.getString("error.lloguer.plataforma"));
     return;
 }
 
@@ -469,7 +511,7 @@ try {
     gestio.registrarLloguer(usuari, joc, plataforma);
 
     JOptionPane.showMessageDialog(this,
-            "El lloguer s'ha registrat correctament.");
+            textos.getString("missatge.lloguerRegistrat"));
 
     dispose();
 
@@ -477,7 +519,7 @@ try {
     JOptionPane.showMessageDialog(
             this,
             ex.getMessage(),
-            "Error",
+            textos.getString("missatge.error"),
             JOptionPane.ERROR_MESSAGE
     );
 }

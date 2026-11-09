@@ -13,6 +13,9 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author JGR
@@ -21,6 +24,11 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FinestraPrincipal.class.getName());
     private final GestioLloguers gestio;
+    
+    private static final ResourceBundle textos = ResourceBundle.getBundle(
+        "com.jordigelabert.gamehub.Bundle",
+        Locale.forLanguageTag("ca-ES")
+);
 
     /**
      * Creates new form FinestraPrincipal
@@ -29,6 +37,7 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         gestio = new GestioLloguers();
         
         initComponents();
+        configurarTextos();
         setLocationRelativeTo(null);
         
         configurarColorsTaula();
@@ -36,6 +45,39 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         carregarLloguers();
 
     }
+    
+    private void configurarTextos() {
+    setTitle(textos.getString("principal.titol"));
+
+    // Menús
+    menuLloguer.setText(textos.getString("menu.lloguer"));
+    menuUsuari.setText(textos.getString("menu.usuari"));
+    menuJoc.setText(textos.getString("menu.joc"));
+
+    // Opcions dels menús
+    itemRegistrarLloguer.setText(textos.getString("menu.registrar"));
+    itemTornarLloguer.setText(textos.getString("menu.tornar"));
+    itemCrearUsuari.setText(textos.getString("menu.crear"));
+    itemEsborrarUsuari.setText(textos.getString("menu.esborrar"));
+    itemCrearJoc.setText(textos.getString("menu.crear"));
+    itemEsborrarJoc.setText(textos.getString("menu.esborrar"));
+
+    // Columnes de la taula
+    String[] columnes = {
+        textos.getString("taula.numero"),
+        textos.getString("taula.joc"),
+        textos.getString("taula.usuari"),
+        textos.getString("taula.plataforma"),
+        textos.getString("taula.dataInici"),
+        textos.getString("taula.dataTornada"),
+        textos.getString("taula.genere"),
+        textos.getString("taula.estat")
+    };
+
+    for (int i = 0; i < columnes.length; i++) {
+        taulaLloguers.getColumnModel().getColumn(i).setHeaderValue(columnes[i]);
+    }
+}
     
     private void carregarLloguers() {
 
@@ -54,12 +96,12 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         String estat;
 
         if (lloguer.isRetornat()) {
-            estat = "Retornat";
-        } else if (lloguer.estaVencut()) {
-            estat = "Vençut";
-        } else {
-            estat = "Actiu";
-        }
+    estat = textos.getString("estat.retornat");
+} else if (lloguer.estaVencut()) {
+    estat = textos.getString("estat.vencut");
+} else {
+    estat = textos.getString("estat.actiu");
+}
 
         model.addRow(new Object[]{
             lloguer.getId(),
@@ -76,7 +118,8 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     }
     
     labelTotalLloguers.setText(
-        "Total de lloguers: " + gestio.getLloguers().size()
+    textos.getString("principal.totalLloguers")
+    + ": " + gestio.getLloguers().size()
 );
 }
 
@@ -163,7 +206,15 @@ public class FinestraPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Núm. registre", "Títol del joc", "Usuari", "Plataforma", "Data d'inici", "Data de tornada", "Gènere", "Estat"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         taulaLloguers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollLloguers.setViewportView(taulaLloguers);
 

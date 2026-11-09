@@ -34,6 +34,7 @@ private static final ResourceBundle textos = ResourceBundle.getBundle(
     this.gestio = gestio;
 
     initComponents();
+    configurarTextos();
     setLocationRelativeTo(parent);
     carregarJocs();
 }
@@ -41,6 +42,17 @@ private static final ResourceBundle textos = ResourceBundle.getBundle(
 // Constructor per executar el formulari individualment
 public EsborrarJoc(java.awt.Frame parent, boolean modal) {
     this(parent, modal, new GestioLloguers());
+}
+
+private void configurarTextos() {
+    setTitle(textos.getString("joc.esborrar.titol"));
+
+    labelJoc.setText(
+            textos.getString("joc.esborrar.seleccionar")
+    );
+
+    botoEsborrar.setText(textos.getString("boto.esborrar"));
+    botoCancelar.setText(textos.getString("boto.cancelar"));
 }
 
 private void carregarJocs() {

@@ -31,6 +31,7 @@ public class CrearJoc extends javax.swing.JDialog {
     this.gestio = gestio;
 
     initComponents();
+    configurarTextos();
     setLocationRelativeTo(parent);
     configurarPlataformes();
 }
@@ -38,6 +39,45 @@ public class CrearJoc extends javax.swing.JDialog {
 // Constructor per executar el formulari individualment
 public CrearJoc(java.awt.Frame parent, boolean modal) {
     this(parent, modal, new GestioLloguers());
+}
+
+private void configurarTextos() {
+    setTitle(textos.getString("joc.titol"));
+
+    // Etiquetes
+    labelNom.setText(textos.getString("joc.nom") + " *:");
+    labelGenere.setText(textos.getString("joc.genere") + " *:");
+
+    // Panell de plataformes
+    panelPlataformes.setBorder(
+        javax.swing.BorderFactory.createTitledBorder(
+            textos.getString("joc.plataformes")
+        )
+    );
+
+    // Unitats
+    labelUnitats1.setText(textos.getString("joc.unitats") + ":");
+    labelUnitats2.setText(textos.getString("joc.unitats") + ":");
+    labelUnitats3.setText(textos.getString("joc.unitats") + ":");
+    labelUnitats4.setText(textos.getString("joc.unitats") + ":");
+
+    // Gèneres
+    comboGenere.setModel(new javax.swing.DefaultComboBoxModel<>(
+        new String[]{
+            textos.getString("genere.accio"),
+            textos.getString("genere.aventura"),
+            textos.getString("genere.esports"),
+            textos.getString("genere.estrategia"),
+            textos.getString("genere.rol"),
+            textos.getString("genere.simulacio"),
+            textos.getString("genere.carreres"),
+            textos.getString("genere.altres")
+        }
+    ));
+
+    // Botons
+    botoConfirmar.setText(textos.getString("boto.confirmar"));
+    botoCancelar.setText(textos.getString("boto.cancelar"));
 }
     
 private static final ResourceBundle textos = ResourceBundle.getBundle(

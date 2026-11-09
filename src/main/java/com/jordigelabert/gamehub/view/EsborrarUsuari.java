@@ -34,8 +34,20 @@ public EsborrarUsuari(java.awt.Frame parent, boolean modal,
     this.gestio = gestio;
 
     initComponents();
+    configurarTextos();
     setLocationRelativeTo(parent);
     carregarUsuaris();
+}
+
+private void configurarTextos() {
+    setTitle(textos.getString("usuari.esborrar.titol"));
+
+    labelUsuari.setText(
+            textos.getString("usuari.esborrar.seleccionar")
+    );
+
+    botoEsborrar.setText(textos.getString("boto.esborrar"));
+    botoCancelar.setText(textos.getString("boto.cancelar"));
 }
 
 private void carregarUsuaris() {
