@@ -186,6 +186,7 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         menuUsuari.add(itemCrearUsuari);
 
         itemEsborrarUsuari.setText("Esborrar...");
+        itemEsborrarUsuari.addActionListener(this::itemEsborrarUsuariActionPerformed);
         menuUsuari.add(itemEsborrarUsuari);
 
         jMenuBar1.add(menuUsuari);
@@ -193,9 +194,11 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         menuJoc.setText("Joc");
 
         itemCrearJoc.setText("Crear...");
+        itemCrearJoc.addActionListener(this::itemCrearJocActionPerformed);
         menuJoc.add(itemCrearJoc);
 
         itemEsborrarJoc.setText("Esborrar...");
+        itemEsborrarJoc.addActionListener(this::itemEsborrarJocActionPerformed);
         menuJoc.add(itemEsborrarJoc);
 
         jMenuBar1.add(menuJoc);
@@ -233,6 +236,30 @@ formulari.setVisible(true);
 
 carregarLloguers();
     }//GEN-LAST:event_itemCrearUsuariActionPerformed
+
+    private void itemCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCrearJocActionPerformed
+        // TODO add your handling code here:
+        CrearJoc formulari = new CrearJoc(this, true, gestio);
+formulari.setVisible(true);
+
+carregarLloguers();
+    }//GEN-LAST:event_itemCrearJocActionPerformed
+
+    private void itemEsborrarUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEsborrarUsuariActionPerformed
+        // TODO add your handling code here:
+        EsborrarUsuari formulari = new EsborrarUsuari(this, true, gestio);
+formulari.setVisible(true);
+
+carregarLloguers();
+    }//GEN-LAST:event_itemEsborrarUsuariActionPerformed
+
+    private void itemEsborrarJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEsborrarJocActionPerformed
+        // TODO add your handling code here:
+        EsborrarJoc formulari = new EsborrarJoc(this, true, gestio);
+formulari.setVisible(true);
+
+carregarLloguers();
+    }//GEN-LAST:event_itemEsborrarJocActionPerformed
 
     /**
      * @param args the command line arguments
